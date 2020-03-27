@@ -663,6 +663,10 @@ For detail, see the MSDN[http://msdn.microsoft.com/library/en-us/sysinfo/base/pr
       else
         raise TypeError, "Type #{Registry.type2name(type)} is not supported."
       end
+    rescue Encoding::InvalidByteSequenceError
+      # Ignore entries with broken character encoding
+      puts "Ignoring Encoding::InvalidByteSequenceError for Reg key Name:" + name + " data:" + data
+      [ type, "" ]
     end
 
     #
